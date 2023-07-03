@@ -25,6 +25,7 @@ const Carrito = (props) => {
   const [showDescripcion, setshowDescripcion] = useState(false);
   const [openBorrar, setOpenBorrar] = useState(false);
   const [indexBorrar, setIndexBorrar] = useState(null);
+  //const [mpID, setIDMP] = useState('');
 
   const DeshandleClose = () => {
     setshowDescripcion(false);
@@ -94,7 +95,8 @@ const Carrito = (props) => {
           // Recibir el resultado del pago
           if (response.status === "approved") {
             // Realizar la operación de la API DeshandleSubmit
-            DeshandleSubmit()
+            //setIDMP(response.id);
+            DeshandleSubmit(response.id)
               .then(() => {
                 // Ambas operaciones se completaron con éxito
                 resolve();
@@ -187,7 +189,7 @@ const Carrito = (props) => {
     }
   }
 
-  const DeshandleSubmit = async () => {
+  const DeshandleSubmit = async (mpIDparametro) => {
     let cadenaAPI = "";
     for (let index = 0; index < productosCarrito.length; index++) {
       const producto = productosCarrito[index];
@@ -216,7 +218,8 @@ const Carrito = (props) => {
       const data = {
         email: email,
         descripcion: descripcionValor,
-        ids: ids
+        ids: ids,
+        idMP: mpIDparametro
       };
       const requestOptions = {
         method: 'POST',
